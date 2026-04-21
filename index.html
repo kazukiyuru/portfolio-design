@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>デザイン提案 ビューア</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* 切替バー */
+  .switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    flex-shrink: 0;
+  }
+
+  .switcher-label {
+    color: #888;
+    font-size: 12px;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  .btn {
+    padding: 7px 18px;
+    border: 1px solid #444;
+    border-radius: 20px;
+    background: transparent;
+    color: #aaa;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn:hover { border-color: #888; color: #fff; }
+
+  .btn.active-a { background: #e8e8e8; color: #111; border-color: #e8e8e8; font-weight: 700; }
+  .btn.active-b { background: #8B6F47; color: #fff; border-color: #8B6F47; font-weight: 700; }
+  .btn.active-c { background: #7C6EFF; color: #fff; border-color: #7C6EFF; font-weight: 700; }
+
+  .hint {
+    margin-left: auto;
+    font-size: 11px;
+    color: #555;
+    white-space: nowrap;
+  }
+
+  /* iframe */
+  iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  <span class="switcher-label">デザイン提案：</span>
+  <button class="btn active-a" onclick="show('a', this)">A｜ミニマル×モノクローム</button>
+  <button class="btn"          onclick="show('b', this)">B｜ナチュラル×アースカラー</button>
+  <button class="btn"          onclick="show('c', this)">C｜ダーク×テック</button>
+  <span class="hint">← ボタンで切り替え</span>
+</div>
+
+<iframe id="preview" src="mockup_a.html"></iframe>
+
+<script>
+  function show(id, btn) {
+    document.getElementById('preview').src = 'mockup_' + id + '.html';
+
+    // ボタンのアクティブ状態リセット
+    document.querySelectorAll('.btn').forEach(b => {
+      b.className = 'btn';
+    });
+    btn.classList.add('active-' + id);
+  }
+</script>
+
+</body>
+</html>

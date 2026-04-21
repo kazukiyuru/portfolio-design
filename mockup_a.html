@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>提案A：ミニマル×モノクローム</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F5F5;
+    --surface: #FFFFFF;
+    --text: #1A1A1A;
+    --sub: #888888;
+    --accent: #1A1A1A;
+    --border: #E0E0E0;
+    --hover: #F0F0F0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); }
+
+  /* ラベル */
+  .label {
+    position: fixed; top: 12px; right: 12px;
+    background: #1A1A1A; color: #fff;
+    font-size: 11px; padding: 4px 10px; border-radius: 20px; z-index: 9999;
+  }
+
+  /* Header */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 32px; height: 64px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  header h1 { font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; }
+  nav { margin-left: auto; display: flex; gap: 32px; }
+  nav a { font-size: 0.85rem; color: var(--sub); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+
+  /* Hero */
+  .hero {
+    background: var(--surface);
+    display: flex; align-items: center; gap: 64px;
+    padding: 80px 64px; max-width: 960px; margin: 32px auto;
+    border-radius: 4px;
+  }
+  .hero img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border); }
+  .hero-text h2 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+  .hero-text .role { font-size: 0.85rem; color: var(--sub); letter-spacing: 0.1em; margin-bottom: 20px; text-transform: uppercase; }
+  .hero-text p { font-size: 0.9rem; line-height: 1.9; color: #444; max-width: 400px; }
+
+  /* Section */
+  section { max-width: 960px; margin: 32px auto; }
+  .section-title {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--sub);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  /* Works grid */
+  .works-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .work-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .work-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .work-card .thumb {
+    width: 100%; height: 160px; background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+  }
+  .work-card .card-body { padding: 16px; }
+  .work-card .card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+  .work-card .card-sub { font-size: 0.75rem; color: var(--sub); }
+  .work-card a {
+    display: inline-block; margin-top: 12px;
+    font-size: 0.75rem; color: var(--text);
+    border-bottom: 1px solid var(--text);
+    text-decoration: none; padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+
+  /* Skills */
+  .skills-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 32px; margin-bottom: 32px;
+  }
+  .skills-box p { font-size: 0.9rem; line-height: 1.9; color: #444; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .tag {
+    font-size: 0.75rem; padding: 4px 12px;
+    border: 1px solid var(--border); border-radius: 2px;
+    color: var(--text);
+  }
+
+  /* Contact */
+  .contact-box {
+    background: var(--text); border-radius: 4px;
+    padding: 48px; text-align: center;
+    margin-bottom: 32px;
+  }
+  .contact-box h3 { color: #fff; font-size: 1.2rem; margin-bottom: 8px; }
+  .contact-box p { color: #aaa; font-size: 0.85rem; margin-bottom: 24px; }
+  .contact-box button {
+    background: #fff; color: var(--text);
+    border: none; border-radius: 2px;
+    padding: 12px 32px; font-size: 0.9rem; font-weight: 700;
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .contact-box button:hover { opacity: 0.85; }
+
+  footer { text-align: center; padding: 32px; color: var(--sub); font-size: 0.75rem; }
+</style>
+</head>
+<body>
+<div class="label">提案A：ミニマル×モノクローム</div>
+
+<header>
+  <h1>高尾一輝</h1>
+  <nav>
+    <a href="#">自己紹介</a>
+    <a href="#">スキル</a>
+    <a href="#">Works</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <img src="images/zukky.jpeg" alt="プロフィール写真">
+  <div class="hero-text">
+    <div class="role">Web Designer / Developer</div>
+    <h2>高尾 一輝</h2>
+    <p>WEBデザインの専門学校を卒業。<br>HTML・CSS・JavaScriptを中心に、最近はAIを用いたRPA開発にも取り組んでいます。社会人サッカーではキーパーを担当。</p>
+  </div>
+</div>
+
+<section>
+  <div class="section-title">Works</div>
+  <div class="works-grid">
+    <div class="work-card">
+      <div class="thumb">🍳</div>
+      <div class="card-body">
+        <div class="card-title">自炊日記</div>
+        <div class="card-sub">Instagram / 料理記録</div>
+        <a href="#">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="thumb">⛩</div>
+      <div class="card-body">
+        <div class="card-title">神社巡り</div>
+        <div class="card-sub">フォトギャラリー</div>
+        <a href="#">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="thumb">☕</div>
+      <div class="card-body">
+        <div class="card-title">RiMa Cafe</div>
+        <div class="card-sub">カフェサイト制作</div>
+        <a href="#">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="thumb">⚽</div>
+      <div class="card-body">
+        <div class="card-title">ゆるトレ・サッカー日記</div>
+        <div class="card-sub">ブログサイト</div>
+        <a href="#">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="thumb">🌿</div>
+      <div class="card-body">
+        <div class="card-title">ヒーリングサロン（模擬）</div>
+        <div class="card-sub">サロンサイト制作</div>
+        <a href="#">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="thumb">🤖</div>
+      <div class="card-body">
+        <div class="card-title">バイブコーディング</div>
+        <div class="card-sub">AI × 開発</div>
+        <a href="#">View →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">Skills</div>
+  <div class="skills-box">
+    <p>HTML・CSSのコーディングをプロゲートや書籍で継続的に学習。JavaScriptを通じてサイト構成の幅を広げ、AIを用いたRPA開発にも取り組んでいます。Illustrator・Figmaも使用経験あり。</p>
+    <div class="skill-tags">
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">Figma</span>
+      <span class="tag">Illustrator</span>
+      <span class="tag">AI / RPA</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="contact-box">
+    <h3>お問い合わせ</h3>
+    <p>お仕事のご依頼・ご相談はこちらから</p>
+    <button>お問い合わせフォーム</button>
+  </div>
+</section>
+
+<footer>© 2025 高尾一輝</footer>
+</body>
+</html>
