@@ -16,7 +16,9 @@
     --hover: #F0F0F0;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); }
+  section[id] { scroll-margin-top: 80px; }
 
   /* ラベル */
   .label {
@@ -34,9 +36,42 @@
     position: sticky; top: 0; z-index: 100;
   }
   header h1 { font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; }
-  nav { margin-left: auto; display: flex; gap: 32px; }
-  nav a { font-size: 0.85rem; color: var(--sub); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
-  nav a:hover { color: var(--text); }
+  .desktop-nav { margin-left: auto; display: flex; gap: 32px; }
+  .desktop-nav a { font-size: 0.85rem; color: var(--sub); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .desktop-nav a:hover { color: var(--text); }
+
+  /* ハンバーガー（モバイルのみ） */
+  .hamburger {
+    display: none;
+    width: 40px; height: 40px;
+    border: none; background: transparent;
+    cursor: pointer; position: relative; z-index: 200;
+    margin-left: auto;
+  }
+  .hamburger span {
+    display: block; position: absolute; left: 50%; top: 50%;
+    width: 20px; height: 2px; background: var(--text);
+    transform: translate(-50%, -50%);
+    transition: all 0.3s;
+  }
+  .hamburger span:nth-child(1) { margin-top: -6px; }
+  .hamburger span:nth-child(3) { margin-top: 6px; }
+  .hamburger.active span:nth-child(1) { margin-top: 0; transform: translate(-50%, -50%) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { margin-top: 0; transform: translate(-50%, -50%) rotate(-45deg); }
+
+  .mobile-nav {
+    position: fixed; top: 64px; right: -100%;
+    width: 72%; max-width: 280px; height: calc(100vh - 64px);
+    background: var(--surface); border-left: 1px solid var(--border);
+    transition: right 0.3s; z-index: 150;
+    display: flex; flex-direction: column; padding: 12px 0;
+  }
+  .mobile-nav.open { right: 0; }
+  .mobile-nav a {
+    padding: 16px 32px; color: var(--text); text-decoration: none;
+    font-size: 0.9rem; border-bottom: 1px solid var(--border);
+  }
 
   /* Hero */
   .hero {
@@ -45,13 +80,13 @@
     padding: 80px 64px; max-width: 960px; margin: 32px auto;
     border-radius: 4px;
   }
-  .hero img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border); }
+  .hero img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border); flex-shrink: 0; }
   .hero-text h2 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
   .hero-text .role { font-size: 0.85rem; color: var(--sub); letter-spacing: 0.1em; margin-bottom: 20px; text-transform: uppercase; }
-  .hero-text p { font-size: 0.9rem; line-height: 1.9; color: #444; max-width: 400px; }
+  .hero-text p { font-size: 0.9rem; line-height: 1.9; color: #444; max-width: 440px; }
 
   /* Section */
-  section { max-width: 960px; margin: 32px auto; }
+  section { max-width: 960px; margin: 32px auto; padding: 0 16px; }
   .section-title {
     font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
     text-transform: uppercase; color: var(--sub);
@@ -68,32 +103,34 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px; overflow: hidden;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.3s, transform 0.3s;
   }
-  .work-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .work-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-4px); }
   .work-card .thumb {
-    width: 100%; height: 160px; background: var(--bg);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2rem;
+    width: 100%; height: 160px; object-fit: cover; display: block;
+    background: var(--bg);
   }
   .work-card .card-body { padding: 16px; }
   .work-card .card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
   .work-card .card-sub { font-size: 0.75rem; color: var(--sub); }
-  .work-card a {
+  .work-card a.view-link {
     display: inline-block; margin-top: 12px;
     font-size: 0.75rem; color: var(--text);
     border-bottom: 1px solid var(--text);
     text-decoration: none; padding-bottom: 2px;
     transition: opacity 0.2s;
   }
+  .work-card a.view-link:hover { opacity: 0.6; }
 
-  /* Skills */
+  /* Skills / Strength box */
   .skills-box {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 4px; padding: 32px; margin-bottom: 32px;
   }
   .skills-box p { font-size: 0.9rem; line-height: 1.9; color: #444; }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .skill-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; }
+  .tag-group-label { font-size: 0.7rem; font-weight: 700; color: var(--sub); margin-left: 6px; }
+  .tag-group-label:first-child { margin-left: 0; }
   .tag {
     font-size: 0.75rem; padding: 4px 12px;
     border: 1px solid var(--border); border-radius: 2px;
@@ -108,15 +145,37 @@
   }
   .contact-box h3 { color: #fff; font-size: 1.2rem; margin-bottom: 8px; }
   .contact-box p { color: #aaa; font-size: 0.85rem; margin-bottom: 24px; }
-  .contact-box button {
+  .contact-box .contact-btn {
+    display: inline-block;
     background: #fff; color: var(--text);
     border: none; border-radius: 2px;
     padding: 12px 32px; font-size: 0.9rem; font-weight: 700;
+    text-decoration: none;
     cursor: pointer; transition: opacity 0.2s;
   }
-  .contact-box button:hover { opacity: 0.85; }
+  .contact-box .contact-btn:hover { opacity: 0.85; }
 
   footer { text-align: center; padding: 32px; color: var(--sub); font-size: 0.75rem; }
+
+  /* スクロール出現アニメーション */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.is-visible { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .fade-up { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 700px) {
+    header { padding: 0 20px; }
+    .desktop-nav { display: none; }
+    .hamburger { display: block; }
+    .hero { flex-direction: column; text-align: center; padding: 48px 24px; gap: 24px; margin: 16px; }
+    .hero img { width: 140px; height: 140px; }
+    .hero-text p { max-width: 100%; }
+    .works-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -124,100 +183,169 @@
 
 <header>
   <h1>高尾一輝</h1>
-  <nav>
-    <a href="#">自己紹介</a>
-    <a href="#">スキル</a>
-    <a href="#">Works</a>
-    <a href="#">Contact</a>
+  <nav class="desktop-nav">
+    <a href="#about">自己紹介</a>
+    <a href="#skills">スキル</a>
+    <a href="#strength">長所</a>
+    <a href="#works">Works</a>
+    <a href="#contact">Contact</a>
   </nav>
+  <button class="hamburger" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-nav">
+    <span></span><span></span><span></span>
+  </button>
 </header>
 
-<div class="hero">
-  <img src="images/zukky.jpeg" alt="プロフィール写真">
+<nav id="mobile-nav" class="mobile-nav" aria-label="モバイルメニュー">
+  <a href="#about">自己紹介</a>
+  <a href="#skills">スキル</a>
+  <a href="#strength">長所</a>
+  <a href="#works">Works</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="hero" id="about">
+  <img src="images/profile_new.jpeg" alt="プロフィール写真">
   <div class="hero-text">
     <div class="role">Web Designer / Developer</div>
     <h2>高尾 一輝</h2>
-    <p>WEBデザインの専門学校を卒業。<br>HTML・CSS・JavaScriptを中心に、最近はAIを用いたRPA開発にも取り組んでいます。社会人サッカーではキーパーを担当。</p>
+    <p>WEBデザインの専門学校を卒業。HTML・CSS・JavaScriptを中心に、最近はAIを用いたRPA開発にも取り組んでいます。社会人サッカーではキーパーを担当しています。</p>
   </div>
 </div>
 
-<section>
-  <div class="section-title">Works</div>
-  <div class="works-grid">
-    <div class="work-card">
-      <div class="thumb">🍳</div>
-      <div class="card-body">
-        <div class="card-title">自炊日記</div>
-        <div class="card-sub">Instagram / 料理記録</div>
-        <a href="#">View →</a>
-      </div>
-    </div>
-    <div class="work-card">
-      <div class="thumb">⛩</div>
-      <div class="card-body">
-        <div class="card-title">神社巡り</div>
-        <div class="card-sub">フォトギャラリー</div>
-        <a href="#">View →</a>
-      </div>
-    </div>
-    <div class="work-card">
-      <div class="thumb">☕</div>
-      <div class="card-body">
-        <div class="card-title">RiMa Cafe</div>
-        <div class="card-sub">カフェサイト制作</div>
-        <a href="#">View →</a>
-      </div>
-    </div>
-    <div class="work-card">
-      <div class="thumb">⚽</div>
-      <div class="card-body">
-        <div class="card-title">ゆるトレ・サッカー日記</div>
-        <div class="card-sub">ブログサイト</div>
-        <a href="#">View →</a>
-      </div>
-    </div>
-    <div class="work-card">
-      <div class="thumb">🌿</div>
-      <div class="card-body">
-        <div class="card-title">ヒーリングサロン（模擬）</div>
-        <div class="card-sub">サロンサイト制作</div>
-        <a href="#">View →</a>
-      </div>
-    </div>
-    <div class="work-card">
-      <div class="thumb">🤖</div>
-      <div class="card-body">
-        <div class="card-title">バイブコーディング</div>
-        <div class="card-sub">AI × 開発</div>
-        <a href="#">View →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
+<section id="skills">
   <div class="section-title">Skills</div>
   <div class="skills-box">
-    <p>HTML・CSSのコーディングをプロゲートや書籍で継続的に学習。JavaScriptを通じてサイト構成の幅を広げ、AIを用いたRPA開発にも取り組んでいます。Illustrator・Figmaも使用経験あり。</p>
+    <p>HTML・CSS・JavaScriptを中心に、プロゲートや書籍で継続学習中。AIツール（Claude・ChatGPT・Gemini）を活用しながら、ITパスポート取得に向けて勉強しています。</p>
     <div class="skill-tags">
+      <span class="tag-group-label">コーディング</span>
       <span class="tag">HTML</span>
       <span class="tag">CSS</span>
       <span class="tag">JavaScript</span>
+      <span class="tag">GAS</span>
+      <span class="tag-group-label">デザインツール</span>
       <span class="tag">Figma</span>
       <span class="tag">Illustrator</span>
-      <span class="tag">AI / RPA</span>
+      <span class="tag-group-label">AI活用</span>
+      <span class="tag">Claude</span>
+      <span class="tag">ChatGPT</span>
+      <span class="tag">Gemini</span>
+      <span class="tag-group-label">学習中</span>
+      <span class="tag">ITパスポート</span>
     </div>
   </div>
 </section>
 
-<section>
+<section id="strength">
+  <div class="section-title">Strength</div>
+  <div class="skills-box">
+    <p>継続力と、はまったときの集中力が強みです。自炊日記をInstagramで1年間毎日投稿し続けたことや、高校3年間ペスカドーラ町田ユースに1年在籍し、誰よりも早く体育館で準備を始め、練習後の筋トレ・食事管理によるバルクアップにも取り組みました。この粘り強さは現在のAI活用や情報収集に活きています。座右の銘は「日進月歩」。毎日少しずつでも前進し続けることを大切にしています。</p>
+  </div>
+</section>
+
+<section id="works">
+  <div class="section-title">Works</div>
+  <div class="works-grid">
+    <div class="work-card">
+      <img class="thumb" src="images/profile_new.jpeg" alt="My Photo Gallery">
+      <div class="card-body">
+        <div class="card-title">My Photo Gallery</div>
+        <div class="card-sub">HTML/CSS・JS フォトギャラリー</div>
+        <a class="view-link" href="/My_photo_gallery/">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img class="thumb" src="images/hero_pc.webp" alt="RiMa Cafe">
+      <div class="card-body">
+        <div class="card-title">RiMa Cafe</div>
+        <div class="card-sub">カフェ模擬サイト制作</div>
+        <a class="view-link" href="/rimacafe/">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img class="thumb" src="images/kazu_ai.png" alt="自炊日記">
+      <div class="card-body">
+        <div class="card-title">自炊日記</div>
+        <div class="card-sub">Instagram / 料理記録</div>
+        <a class="view-link" href="https://www.instagram.com/cooking.kazu01" target="_blank" rel="noopener">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img class="thumb" src="images/img_2055.jpg" alt="神社巡り">
+      <div class="card-body">
+        <div class="card-title">神社巡り</div>
+        <div class="card-sub">フォトギャラリーサイト</div>
+        <a class="view-link" href="/Demo-gallery/">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img class="thumb" src="images/grant4.jpeg" alt="ゆるトレ・サッカー日記">
+      <div class="card-body">
+        <div class="card-title">ゆるトレ・サッカー日記</div>
+        <div class="card-sub">ブログサイト制作</div>
+        <a class="view-link" href="/kadai2/">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img class="thumb" src="images/heling_therapist.jpeg" alt="ヒーリングサロン（模擬）" style="object-position: center 25%;">
+      <div class="card-body">
+        <div class="card-title">ヒーリングサロン（模擬）</div>
+        <div class="card-sub">サロンサイト制作</div>
+        <a class="view-link" href="/heling/">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img class="thumb" src="images/beel.png" alt="自分の酒飲み">
+      <div class="card-body">
+        <div class="card-title">自分の酒飲み</div>
+        <div class="card-sub">個人ブログ制作</div>
+        <a class="view-link" href="/drink/">View →</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img class="thumb" src="images/vibe_coding.svg" alt="バイブコーディング" style="object-fit: contain; padding: 20px; background: var(--bg);">
+      <div class="card-body">
+        <div class="card-title">バイブコーディング</div>
+        <div class="card-sub">AI × 高速プロトタイピング</div>
+        <a class="view-link" href="/vibe/">View →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
   <div class="contact-box">
     <h3>お問い合わせ</h3>
     <p>お仕事のご依頼・ご相談はこちらから</p>
-    <button>お問い合わせフォーム</button>
+    <a class="contact-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSebplFTU_S-tZXLR4ASSA_NHL0_x-g35ypijREtJYZ09A0PBQ/viewform?usp=sf_link" target="_blank" rel="noopener">お問い合わせフォーム</a>
   </div>
 </section>
 
 <footer>© 2025 高尾一輝</footer>
+
+<script>
+  // ハンバーガーメニュー
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const toggleMenu = (open) => {
+    hamburger.classList.toggle('active', open);
+    mobileNav.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+  };
+  hamburger.addEventListener('click', () => toggleMenu(!hamburger.classList.contains('active')));
+  mobileNav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggleMenu(false)));
+
+  // スクロール出現アニメーション
+  const fadeTargets = document.querySelectorAll('.hero, .skills-box, .work-card, .contact-box');
+  fadeTargets.forEach((el) => el.classList.add('fade-up'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  fadeTargets.forEach((el) => io.observe(el));
+</script>
 </body>
 </html>
