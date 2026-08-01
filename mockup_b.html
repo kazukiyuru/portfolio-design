@@ -9,13 +9,15 @@
 <meta property="og:description" content="HTML/CSS・JavaScript・AI活用によるWeb制作の作品集">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="images/kazu_ai.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #FAF7F2;
     --surface: #FFFFFF;
     --text: #3D2B1F;
-    --sub: #9C8476;
+    --sub: #6E5A47; /* #9C8476はコントラスト不足(3.29〜3.51:1)だったため濃色に(6.1〜6.5:1) */
     --accent: #8B6F47;
     --light: #C4A882;
     --green: #5C8A5A;
@@ -292,7 +294,7 @@
   <div class="section-header"><h2>Works</h2></div>
   <div class="works-list">
     <div class="work-card">
-      <img class="thumb" loading="lazy" src="images/profile_new.jpeg" alt="My Photo Gallery">
+      <img class="thumb" loading="lazy" src="images/gallery_sample.jpeg" alt="My Photo Gallery">
       <div class="card-body">
         <div class="card-title">My Photo Gallery</div>
         <div class="card-sub">HTML/CSS・JS フォトギャラリー</div>

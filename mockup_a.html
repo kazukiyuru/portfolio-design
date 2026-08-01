@@ -9,13 +9,15 @@
 <meta property="og:description" content="HTML/CSS・JavaScript・AI活用によるWeb制作の作品集">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="images/kazu_ai.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F5F5F5;
     --surface: #FFFFFF;
     --text: #1A1A1A;
-    --sub: #888888;
+    --sub: #6B6B6B; /* #888888はコントラスト不足(3.54:1)だったため濃色に(5.33:1) */
     --accent: #1A1A1A;
     --border: #E0E0E0;
     --hover: #F0F0F0;
@@ -122,7 +124,7 @@
   .tag-mini {
     font-size: 0.65rem; padding: 2px 8px;
     border: 1px solid var(--border); border-radius: 2px;
-    color: #595959; /* var(--sub)は白背景でコントラスト不足(約3.5:1)のため濃色に */
+    color: var(--sub);
   }
   .work-card a.view-link {
     display: inline-block; margin-top: 12px;
@@ -212,7 +214,7 @@
 <body>
 
 <header>
-  <h1>高尾一輝</h1>
+  <h1>高尾 一輝</h1>
   <span class="label-badge">試作A</span>
   <nav class="desktop-nav">
     <a href="#about">自己紹介</a>
@@ -244,7 +246,7 @@
 </div>
 
 <section id="skills">
-  <div class="section-title">Skills</div>
+  <h2 class="section-title">Skills</h2>
   <div class="skills-box">
     <p>HTML・CSS・JavaScriptを中心に、プロゲートや書籍で継続学習中。AIツール（Claude・ChatGPT・Gemini）を活用しながら、ITパスポート取得に向けて勉強しています。</p>
     <div class="skill-tags">
@@ -267,17 +269,17 @@
 </section>
 
 <section id="strength">
-  <div class="section-title">Strength</div>
+  <h2 class="section-title">Strength</h2>
   <div class="skills-box">
     <p>継続力と、はまったときの集中力が強みです。自炊日記をInstagramで1年間毎日投稿し続けたことや、高校3年間ペスカドーラ町田ユースに1年在籍し、誰よりも早く体育館で準備を始め、練習後の筋トレ・食事管理によるバルクアップにも取り組みました。この粘り強さは現在のAI活用や情報収集に活きています。座右の銘は「日進月歩」。毎日少しずつでも前進し続けることを大切にしています。</p>
   </div>
 </section>
 
 <section id="works">
-  <div class="section-title">Works</div>
+  <h2 class="section-title">Works</h2>
   <div class="works-grid">
     <div class="work-card">
-      <img class="thumb" loading="lazy" src="images/profile_new.jpeg" alt="My Photo Gallery">
+      <img class="thumb" loading="lazy" src="images/gallery_sample.jpeg" alt="My Photo Gallery">
       <div class="card-body">
         <div class="card-title">My Photo Gallery</div>
         <div class="card-sub">HTML/CSS・JS フォトギャラリー</div>
