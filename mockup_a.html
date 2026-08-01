@@ -25,11 +25,11 @@
   body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); }
   section[id] { scroll-margin-top: 80px; }
 
-  /* ラベル */
-  .label {
-    position: fixed; bottom: 12px; left: 12px;
+  /* ラベル（ヘッダー内インライン表示） */
+  .label-badge {
+    font-size: 10px; padding: 2px 8px; border-radius: 10px;
     background: #1A1A1A; color: #fff;
-    font-size: 11px; padding: 4px 10px; border-radius: 20px; z-index: 9999; opacity: 0.85;
+    margin-left: 8px; white-space: nowrap; opacity: 0.85; flex-shrink: 0;
   }
 
   /* Header */
@@ -204,10 +204,10 @@
 </style>
 </head>
 <body>
-<div class="label">提案A：ミニマル×モノクローム</div>
 
 <header>
   <h1>高尾一輝</h1>
+  <span class="label-badge">試作A</span>
   <nav class="desktop-nav">
     <a href="#about">自己紹介</a>
     <a href="#skills">スキル</a>

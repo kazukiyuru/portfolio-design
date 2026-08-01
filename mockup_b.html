@@ -26,10 +26,10 @@
   body { font-family: 'Noto Serif JP', serif; background: var(--bg); color: var(--text); }
   section[id] { scroll-margin-top: 84px; }
 
-  .label {
-    position: fixed; bottom: 12px; left: 12px;
+  .label-badge {
+    font-size: 10px; padding: 2px 8px; border-radius: 10px;
     background: var(--accent); color: #fff;
-    font-size: 11px; padding: 4px 10px; border-radius: 20px; z-index: 9999; opacity: 0.85;
+    margin-left: 8px; white-space: nowrap; opacity: 0.85; flex-shrink: 0;
   }
 
   /* Header */
@@ -223,10 +223,10 @@
 </style>
 </head>
 <body>
-<div class="label">提案B：ナチュラル×アースカラー</div>
 
 <header>
   <h1>高尾 一輝</h1>
+  <span class="label-badge">試作B</span>
   <nav class="desktop-nav">
     <a href="#about">自己紹介</a>
     <a href="#skills">スキル</a>

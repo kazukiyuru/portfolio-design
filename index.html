@@ -64,6 +64,27 @@
     width: 100%;
     border: none;
   }
+
+  /* モバイル：折り返し表示、ヒント文は非表示 */
+  @media (max-width: 700px) {
+    .switcher {
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px 12px;
+    }
+    .switcher-label {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 2px;
+    }
+    .hint {
+      display: none;
+    }
+    .btn {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  }
 </style>
 </head>
 <body>
