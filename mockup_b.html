@@ -57,7 +57,7 @@
   /* ハンバーガー（モバイルのみ） */
   .hamburger {
     display: none;
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     border: none; background: transparent;
     cursor: pointer; position: relative; z-index: 200;
     margin-left: auto;
@@ -185,9 +185,10 @@
 
   footer { text-align: center; padding: 32px; color: var(--sub); font-size: 0.75rem; }
 
-  /* PCナビ：現在地ハイライト */
+  /* ナビ：現在地ハイライト（PC・モバイル共通） */
   .desktop-nav a.current { color: var(--accent); }
   .desktop-nav a.current::after { width: 100%; }
+  .mobile-nav a.current { color: var(--accent); font-weight: 700; background: var(--bg); }
 
   /* トップへ戻るボタン */
   #to-top {
@@ -415,7 +416,7 @@
   });
 
   // PCナビの現在地ハイライト
-  const navLinksAll = document.querySelectorAll('.desktop-nav a');
+  const navLinksAll = document.querySelectorAll('.desktop-nav a, .mobile-nav a');
   const currentObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;

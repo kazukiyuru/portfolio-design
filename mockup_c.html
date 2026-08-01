@@ -60,7 +60,7 @@
   /* ハンバーガー（モバイルのみ） */
   .hamburger {
     display: none;
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     border: none; background: transparent;
     cursor: pointer; position: relative; z-index: 200;
     margin-left: auto;
@@ -233,8 +233,9 @@
 
   footer { text-align: center; padding: 32px; color: var(--sub); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; }
 
-  /* PCナビ：現在地ハイライト */
+  /* ナビ：現在地ハイライト（PC・モバイル共通） */
   .desktop-nav a.current { color: var(--accent2); }
+  .mobile-nav a.current { color: var(--accent2); font-weight: 700; background: var(--surface2); }
 
   /* トップへ戻るボタン */
   #to-top {
@@ -265,6 +266,11 @@
     .hero { flex-direction: column; text-align: center; padding: 40px 28px; gap: 24px; margin: 16px; }
     .hero img { width: 140px; height: 140px; }
     .works-grid { grid-template-columns: 1fr; }
+  }
+
+  /* タブレット：3カラムだと窮屈なので2カラムに */
+  @media (min-width: 701px) and (max-width: 900px) {
+    .works-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -461,7 +467,7 @@
   });
 
   // PCナビの現在地ハイライト
-  const navLinksAll = document.querySelectorAll('.desktop-nav a');
+  const navLinksAll = document.querySelectorAll('.desktop-nav a, .mobile-nav a');
   const currentObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
