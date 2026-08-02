@@ -506,11 +506,11 @@
     const splash = document.getElementById('kt-splash');
     if (!splash) return;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion || sessionStorage.getItem('kt_logo_splash_shown')) {
+    if (reduceMotion || sessionStorage.getItem('kt_logo_splash_shown_c')) {
       splash.style.display = 'none';
       return;
     }
-    sessionStorage.setItem('kt_logo_splash_shown', '1');
+    sessionStorage.setItem('kt_logo_splash_shown_c', '1');
     document.body.classList.add('kt-splash-active');
 
     const stage = document.getElementById('kt-logo-stage');
