@@ -277,11 +277,11 @@
 
   /* ===== ロゴスプラッシュ（KAZUKI TAKAO ブランドマーク） =====
      ダークテーマだがロゴが黒基調のため、視認性を優先し背景は白固定。
-     エンブレム画像は実物そのまま静的表示（アニメーションなし）。
-     名前・タグラインはFigma実データのgetBBox()実測値(1254x1254基準)を
-     %換算した絶対配置で重ね、実物とズレないようにする。
-     線描画アニメーションは実データのある「KAZUKI TAKAO」文字部分のみに限定し、
-     実際のロゴと異なる見た目になるリスクを避ける。 */
+     ①円形マスクでエンブレム全体をリビール →②名前・タグラインがフェードイン、の2段階。
+     Vivus.js（線描画）は廃止し、CSSのclip-path/opacityのみで完結させ、
+     過去に発生した位置ズレ・要素消失系のバグの温床を減らす。
+     名前・タグラインの位置はFigma実データのgetBBox()実測値(1254x1254基準)を
+     %換算した絶対配置で重ねている。 */
   body.kt-splash-active { overflow: hidden; }
   #kt-splash {
     position: fixed; inset: 0; z-index: 9999;
@@ -300,20 +300,21 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: contain;
+    clip-path: circle(0% at 50% 50%);
+    transition: clip-path 0.9s ease-out;
+  }
+  #kt-logo-stage.kt-reveal #kt-emblem-img {
+    clip-path: circle(75% at 50% 50%);
   }
 
   /* name(KAZUKI TAKAO+TM)の実測位置: x=470.8,y=1104.2,w=325.1,h=52.0 / frame 1254 */
   #kt-name-wrap {
     position: absolute;
     left: 37.55%; top: 88.06%; width: 25.93%;
+    opacity: 0;
+    transition: opacity 0.6s ease;
   }
   #kt-name-svg { width: 100%; height: auto; display: block; }
-  #kt-name-svg path {
-    fill-opacity: 0;
-    stroke: #111111; stroke-width: 1.4;
-    transition: fill-opacity 0.5s ease;
-  }
-  #kt-name-svg.kt-done path { fill-opacity: 1; stroke: none; }
 
   /* tagline(CONTACT・GROW・CONCEPT)の実測位置: x=430.3,y=1197.7,w=322.2,h=11.5 / frame 1254 */
   #kt-splash-tagline {
@@ -325,6 +326,7 @@
     opacity: 0;
     transition: opacity 0.6s ease;
   }
+  #kt-splash.kt-text-in #kt-name-wrap,
   #kt-splash.kt-text-in #kt-splash-tagline { opacity: 1; }
 
   @media (prefers-reduced-motion: reduce) {
@@ -496,11 +498,10 @@
 <!-- トップへ戻るボタン -->
 <button id="to-top" type="button" aria-label="ページの先頭へ戻る">↑</button>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.4/vivus.min.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ロゴスプラッシュ（エンブレム画像はそのまま表示、KAZUKI TAKAO文字のみ線描画→塗りつぶし）
+  // ロゴスプラッシュ（①円形マスクでエンブレムをリビール→②名前・タグラインがフェードイン）
   (function () {
     const splash = document.getElementById('kt-splash');
     if (!splash) return;
@@ -512,35 +513,30 @@
     sessionStorage.setItem('kt_logo_splash_shown', '1');
     document.body.classList.add('kt-splash-active');
 
-    const finishSplash = () => {
-      setTimeout(() => splash.classList.add('kt-text-in'), 150);
-      setTimeout(() => {
-        splash.classList.add('fadeout');
-        document.body.classList.remove('kt-splash-active');
-        setTimeout(() => { splash.style.display = 'none'; }, 700);
-      }, 1400);
-    };
+    const stage = document.getElementById('kt-logo-stage');
 
     // 「KAZUKI TAKAO」文字のSVGは3案共通の外部ファイル(images/kt-name.svg)から読み込む
-    fetch('images/kt-name.svg')
+    const loadName = fetch('images/kt-name.svg')
       .then((res) => res.text())
       .then((svgText) => {
         document.getElementById('kt-name-wrap').innerHTML = svgText;
-        const nameSvg = document.getElementById('kt-name-svg');
-        setTimeout(() => {
-          new Vivus('kt-name-svg', {
-            type: 'scenario-sync',
-            duration: 45,
-            animTimingFunction: Vivus.EASE,
-          }, function () {
-            nameSvg.classList.add('kt-done');
-            finishSplash();
-          });
-        }, 500);
       })
-      .catch(() => {
-        finishSplash();
-      });
+      .catch(() => {});
+
+    // ①円形マスクでエンブレムをリビール
+    requestAnimationFrame(() => stage.classList.add('kt-reveal'));
+
+    // ②リビールが進んだタイミングで名前・タグラインをフェードイン
+    loadName.finally(() => {
+      setTimeout(() => {
+        splash.classList.add('kt-text-in');
+        setTimeout(() => {
+          splash.classList.add('fadeout');
+          document.body.classList.remove('kt-splash-active');
+          setTimeout(() => { splash.style.display = 'none'; }, 700);
+        }, 1300);
+      }, 700);
+    });
   })();
 
   // ハンバーガーメニュー
