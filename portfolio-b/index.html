@@ -24,6 +24,8 @@
     --accent: #8B6F47;
     --light: #C4A882;
     --green: #5C8A5A;
+    --green-text: #4A7048; /* タグ文字用：#5C8A5Aは背景とのコントラストが3.75:1でAA未達のため濃色に(5.3:1) */
+    --green-light: #A9C4A5;
     --border: #E8DDD4;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -137,8 +139,8 @@
   .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
   .tag-mini {
     font-size: 0.68rem; padding: 3px 10px;
-    background: var(--bg); border: 1px solid var(--light);
-    border-radius: 12px; color: var(--accent);
+    background: var(--bg); border: 1px solid var(--green-light);
+    border-radius: 12px; color: var(--green-text);
   }
   .work-card a.view-link {
     font-size: 0.78rem; color: var(--green);
@@ -159,8 +161,8 @@
   .tag-group-label:first-child { margin-left: 0; }
   .tag {
     font-size: 0.8rem; padding: 6px 14px;
-    background: var(--bg); border: 1px solid var(--light);
-    border-radius: 20px; color: var(--accent);
+    background: var(--bg); border: 1px solid var(--green-light);
+    border-radius: 20px; color: var(--green-text);
   }
 
   /* Contact */
