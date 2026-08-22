@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kazukitakao.netlify.app/sitemap.xml
