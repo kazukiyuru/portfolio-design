@@ -119,21 +119,24 @@
   }
 
   /* Works */
-  .works-list { display: flex; flex-direction: column; gap: 20px; }
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+  }
   .work-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 12px; overflow: hidden;
-    display: flex; align-items: center;
     transition: box-shadow 0.3s, transform 0.3s;
   }
   .work-card:hover { box-shadow: 0 6px 24px rgba(139,111,71,0.16); transform: translateY(-3px); }
   .work-card .thumb {
-    width: 120px; height: 100px; flex-shrink: 0;
+    width: 100%; height: 160px;
     object-fit: cover;
     background: var(--bg);
-    border-right: 1px solid var(--border);
+    display: block;
   }
-  .work-card .card-body { padding: 20px 24px; text-align: left; }
+  .work-card .card-body { padding: 20px; text-align: left; }
   .work-card .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
   .work-card .card-sub { font-size: 0.78rem; color: var(--sub); margin-bottom: 10px; }
   .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
@@ -218,9 +221,7 @@
     .hamburger { display: block; }
     .hero { flex-direction: column; text-align: center; padding: 40px 24px; gap: 24px; margin: 16px; }
     .hero img { width: 150px; height: 150px; }
-    .work-card { flex-direction: column; align-items: stretch; }
-    .work-card .thumb { width: 100%; height: 160px; border-right: none; border-bottom: 1px solid var(--border); }
-    .work-card .card-body { text-align: center; }
+    .works-grid { grid-template-columns: 1fr; }
   }
 
   /* ===== ロゴスプラッシュ（KAZUKI TAKAO ブランドマーク） =====
@@ -321,7 +322,7 @@
 
 <section id="works">
   <div class="section-header"><h2>Works</h2></div>
-  <div class="works-list">
+  <div class="works-grid">
     <div class="work-card">
       <img class="thumb" loading="lazy" src="images/gallery_sample.jpeg" alt="My Photo Gallery">
       <div class="card-body">
