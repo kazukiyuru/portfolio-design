@@ -155,7 +155,12 @@
   /* Skills / Strength */
   .skills-box {
     background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
     border-radius: 12px; padding: 36px;
+  }
+  /* Strengthは緑系の左ボーダー+淡色背景で、Skillsとの単調な繰り返しを避ける */
+  .skills-box.strength-box {
+    background: #F5F8F3; border-left: 3px solid var(--green);
   }
   .skills-box p { font-size: 0.9rem; line-height: 2; color: var(--sub); margin-bottom: 24px; }
   .skills-box p:last-child { margin-bottom: 0; }
@@ -314,7 +319,7 @@
 
 <section id="strength">
   <div class="section-header"><h2>Strength</h2></div>
-  <div class="skills-box">
+  <div class="skills-box strength-box">
     <p>継続力と、はまったときの集中力が強みです。自炊日記をInstagramで1年間毎日投稿し続けたことや、高校3年間ペスカドーラ町田ユースに1年在籍し、誰よりも早く体育館で準備を始め、練習後の筋トレ・食事管理によるバルクアップにも取り組みました。</p>
     <p>この粘り強さは現在のAI活用や情報収集に活きています。座右の銘は「日進月歩」。毎日少しずつでも前進し続けることを大切にしています。</p>
   </div>
